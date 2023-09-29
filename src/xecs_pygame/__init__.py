@@ -32,7 +32,7 @@ class Circle(xx.Component):
 
 
 class Rectangle(xx.Component):
-    size: xx.PyField[tuple[int, int]] = xx.py_field(default=(10.0, 10.0))
+    size: xx.PyField[tuple[float, float]] = xx.py_field(default=(10.0, 10.0))
     color: xx.PyField[str] = xx.py_field(default="purple")
     width: xx.PyField[int] = xx.py_field(default=0)
 
