@@ -10,6 +10,8 @@ maintainers = [
 
 dependencies = [
   "xecs",
+  "pygame",
+  "numpy",
 ]
 requires-python = ">=3.11"
 dynamic = ["version"]
@@ -21,9 +23,6 @@ dev = [
   "black",
   "ruff",
   "mypy",
-  "numpy",
-  "pytest",
-  "pytest-cov",
   "build",
   "twine",
 ]

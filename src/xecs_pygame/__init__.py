@@ -26,21 +26,47 @@ class Display(xx.Resource):
     hooks: list[Callable[[], None]]
 
 
+class Circle(xx.Component):
+    radius: xx.PyField[float] = xx.py_field(default=5.0)
+    color: xx.PyField[str] = xx.py_field(default="purple")
+
+
 class Rectangle(xx.Component):
-    size: xx.PyField[tuple[int, int]]
-    color: xx.PyField[str]
-    width: xx.PyField[int]
+    size: xx.PyField[tuple[int, int]] = xx.py_field(default=(10.0, 10.0))
+    color: xx.PyField[str] = xx.py_field(default="purple")
+    width: xx.PyField[int] = xx.py_field(default=0)
+
+
+def _get_star() -> list[tuple[float, float]]:
+    outer_xs = np.cos(np.linspace(0, 2 * np.pi, 5, endpoint=False)) * 10
+    outer_ys = np.sin(np.linspace(0, 2 * np.pi, 5, endpoint=False)) * 10
+    inner_xs = (
+        np.cos(np.linspace(0, 2 * np.pi, 5, endpoint=False) + 0.3 * np.pi) * 5
+    )
+    inner_ys = (
+        np.sin(np.linspace(0, 2 * np.pi, 5, endpoint=False) + 0.3 * np.pi) * 5
+    )
+
+    coordinates = []
+    for i in range(5):
+        coordinates.append((outer_xs[i], outer_ys[i]))
+        coordinates.append((inner_xs[i], inner_ys[i]))
+
+    return coordinates
 
 
 class Polygon(xx.Component):
-    vertices: xx.PyField[list[tuple[float, float]]]
-    color: xx.PyField[str]
+    vertices: xx.PyField[list[tuple[float, float]]] = xx.py_field(
+        default=_get_star(),
+    )
+    color: xx.PyField[str] = xx.py_field(default="purple")
 
 
 def draw(
     display: Display,
     polygon_query: xx.Query[tuple[xx.Transform2, Polygon]],
     rectangle_query: xx.Query[tuple[xx.Transform2, Rectangle]],
+    circle_query: xx.Query[tuple[xx.Transform2, Circle]],
 ) -> None:
     scale = 2
     (transform, polygon) = polygon_query.result()
@@ -55,11 +81,13 @@ def draw(
             [np.sin(angle), np.cos(angle)],
         ]
         vertices = np.array(polygon.vertices.get(i)).T
-        boid_polygon = (
+        drawn_polygon = (
             np.multiply(scale, [x, y]) + display_origin + (r @ vertices).T
         )
         pygame.draw.polygon(
-            display.surface, polygon.color.get(i), boid_polygon.tolist()
+            display.surface,
+            polygon.color.get(i),
+            drawn_polygon.tolist(),
         )
 
     (transform, rectangle) = rectangle_query.result()
@@ -77,6 +105,17 @@ def draw(
                 scale * h,
             ),
             rectangle.width.get(i),
+        )
+
+    (transform, circle) = circle_query.result()
+    for i in range(len(transform)):
+        x = transform.translation.x.get(i) * scale + display_origin[0]
+        y = transform.translation.y.get(i) * scale + display_origin[1]
+        pygame.draw.circle(
+            display.surface,
+            circle.color.get(i),
+            (x, y),
+            scale * circle.radius.get(i),
         )
 
     display.surface.blit(

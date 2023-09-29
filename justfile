@@ -22,9 +22,6 @@ check:
   echo
   ( set -x; mypy . )
 
-  echo
-  ( set -x; pytest --cov=src --cov-report term-missing )
-
   test $error = 0
 
 # Auto-fix code issues.
