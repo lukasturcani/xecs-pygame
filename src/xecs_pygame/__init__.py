@@ -16,6 +16,7 @@ class PyGamePlugin(xx.RealTimeAppPlugin):
             Display(pygame.display.set_mode(self._window_size), "black", [])
         )
         app.add_system(draw)
+        app.add_pool(Circle.create_pool(0))
         app.add_pool(Rectangle.create_pool(0))
         app.add_pool(Polygon.create_pool(0))
 
