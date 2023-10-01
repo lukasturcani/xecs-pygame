@@ -37,6 +37,9 @@ your entities will be rendered on the screen:
       app.add_pool(Circle.create_pool(3))
       app.add_pool(xx.Transform2.create_pool(3))
 
+  if __name__: "__main__":
+      main()
+
 
 Further examples
 ----------------
