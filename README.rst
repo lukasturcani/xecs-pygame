@@ -25,6 +25,9 @@ your entities will be rendered on the screen:
 
 .. code-block:: python
 
+  import xecs as xx
+  from xecs_pygame import Circle, PyGamePlugin
+
   def spawn_three_circles(commands: xx.Commands, world: xx.World) -> None:
       circle_transformi, _ = commands.spawn((xx.Transform2, Circle), 3)
       circle_transform = world.get_view(xx.Transform2, circle_transformi)
@@ -37,7 +40,7 @@ your entities will be rendered on the screen:
       app.add_pool(Circle.create_pool(3))
       app.add_pool(xx.Transform2.create_pool(3))
 
-  if __name__: "__main__":
+  if __name__ == "__main__":
       main()
 
 
