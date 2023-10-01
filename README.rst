@@ -1,0 +1,53 @@
+xecs-pygame
+===========
+
+A plugin for xecs_, allowing you to render your entities with pygame_.
+
+Usage
+-----
+
+First, add the plugin to your xecs_ app.
+
+.. code-block:: python
+
+  import xecs as xx
+  from xecs_pygame import PyGamePlugin
+
+  def main() -> None:
+      app = xx.RealTimeApp()
+      app.add_plugin(PyGamePlugin())
+
+
+Now, when you spawn entities, you can give them a
+``Circle``, ``Polygon``, ``Rectangle`` component. If you do that,
+your entities will be rendered on the screen:
+
+
+.. code-block:: python
+
+  def spawn_three_circles(commands: xx.Commands, world: xx.World) -> None:
+      circle_transformi, _ = commands.spawn((xx.Transform2, Circle), 3)
+      circle_transform = world.get_view(xx.Transform2, circle_transformi)
+      circle_transform.translation.x.fill([0, 15, 30])
+
+  def main() -> None:
+      app = xx.RealTimeApp()
+      app.add_plugin(PyGamePlugin())
+      app.add_system(spawn_three_circles)
+      app.add_pool(Circle.create_pool(3))
+      app.add_pool(xx.Transform2.create_pool(3))
+
+
+Further examples
+----------------
+
+* ...
+* ...
+
+
+Installation
+------------
+
+.. code-block:: bash
+
+  pip install xecs-pygame
