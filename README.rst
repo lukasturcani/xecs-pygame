@@ -41,8 +41,15 @@ your entities will be rendered on the screen:
 Further examples
 ----------------
 
-* ...
-* ...
+* `draw shapes`_
+* `moving circles`_
+* `boids`_
+
+.. _xecs: https://github.com/lukasturcani/xecs
+.. _pygame: https://github.com/pygame/pygame
+.. _`draw shapes`: https://github.com/lukasturcani/xecs-pygame/blob/master/examples/draw_shapes.py
+.. _`moving circles`: https://github.com/lukasturcani/xecs/blob/master/examples/moving_circles/moving_circles.py
+.. _boids: https://github.com/lukasturcani/xecs/blob/master/examples/boids/boids.py
 
 
 Installation
