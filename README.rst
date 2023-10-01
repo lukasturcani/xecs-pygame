@@ -39,6 +39,7 @@ your entities will be rendered on the screen:
       app.add_startup_system(spawn_three_circles)
       app.add_pool(Circle.create_pool(3))
       app.add_pool(xx.Transform2.create_pool(3))
+      app.run()
 
   if __name__ == "__main__":
       main()
