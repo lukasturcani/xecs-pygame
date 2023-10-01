@@ -33,7 +33,7 @@ your entities will be rendered on the screen:
   def main() -> None:
       app = xx.RealTimeApp()
       app.add_plugin(PyGamePlugin())
-      app.add_system(spawn_three_circles)
+      app.add_startup_system(spawn_three_circles)
       app.add_pool(Circle.create_pool(3))
       app.add_pool(xx.Transform2.create_pool(3))
 
