@@ -141,5 +141,5 @@ def update_mouse(mouse: xx.Mouse) -> None:
         button = xx.MouseButton(number)
         if pressed:
             mouse.pressed.add(button)
-        if not pressed and button in mouse.pressed:
-            mouse.pressed.remove(button)
+        else:
+            mouse.pressed.discard(button)
