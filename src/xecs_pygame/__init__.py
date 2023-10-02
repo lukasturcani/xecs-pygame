@@ -16,9 +16,11 @@ class PyGamePlugin(xx.RealTimeAppPlugin):
             Display(pygame.display.set_mode(self._window_size), "black", [])
         )
         app.add_system(draw)
+        app.add_system(update_mouse)
         app.add_pool(Circle.create_pool(0))
         app.add_pool(Rectangle.create_pool(0))
         app.add_pool(Polygon.create_pool(0))
+        app.add_pool(xx.Transform2.create_pool(0))
 
 
 class Display(xx.Resource):
@@ -30,6 +32,7 @@ class Display(xx.Resource):
 class Circle(xx.Component):
     radius: xx.PyField[float] = xx.py_field(default=5.0)
     color: xx.PyField[str] = xx.py_field(default="purple")
+    width: xx.PyField[int] = xx.py_field(default=0)
 
 
 class Rectangle(xx.Component):
@@ -117,6 +120,7 @@ def draw(
             circle.color.get(i),
             (x, y),
             scale * circle.radius.get(i),
+            width=circle.width.get(i),
         )
 
     display.surface.blit(
@@ -127,3 +131,15 @@ def draw(
     for hook in display.hooks:
         hook()
     pygame.display.flip()
+
+
+def update_mouse(mouse: xx.Mouse) -> None:
+    pygame.event.get()
+    for number, pressed in enumerate(
+        pygame.mouse.get_pressed(num_buttons=5), 1
+    ):
+        button = xx.MouseButton(number)
+        if pressed:
+            mouse.pressed.add(button)
+        if not pressed and button in mouse.pressed:
+            mouse.pressed.remove(button)
