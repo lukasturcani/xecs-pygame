@@ -54,6 +54,7 @@ Further examples
 * `mouse presses`_
 * `mouse position`_
 * `text`_
+* keyboard_
 
 .. _xecs: https://github.com/lukasturcani/xecs
 .. _pygame: https://github.com/pygame/pygame
@@ -63,6 +64,7 @@ Further examples
 .. _`mouse presses`: https://xecs.readthedocs.io/en/latest/mouse_presses.html
 .. _`mouse position`: https://xecs.readthedocs.io/en/latest/mouse_position.html
 .. _`text`: https://xecs.readthedocs.io/en/latest/text.html
+.. _keyboard: https://xecs.readthedocs.io/en/latest/keyboard.html
 
 
 Installation
