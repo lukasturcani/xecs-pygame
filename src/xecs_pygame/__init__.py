@@ -72,7 +72,6 @@ def draw(
     rectangle_query: xx.Query[tuple[xx.Transform2, Rectangle]],
     circle_query: xx.Query[tuple[xx.Transform2, Circle]],
 ) -> None:
-    scale = 2
     (transform, polygon) = polygon_query.result()
     display.surface.fill(display.color)
     display_origin = np.array(display.surface.get_size()) / 2
@@ -85,9 +84,7 @@ def draw(
             [np.sin(angle), np.cos(angle)],
         ]
         vertices = np.array(polygon.vertices.get(i)).T
-        drawn_polygon = (
-            np.multiply(scale, [x, y]) + display_origin + (r @ vertices).T
-        )
+        drawn_polygon = [x, y] + display_origin + (r @ vertices).T
         pygame.draw.polygon(
             display.surface,
             polygon.color.get(i),
@@ -103,23 +100,23 @@ def draw(
             display.surface,
             rectangle.color.get(i),
             pygame.Rect(
-                x * scale + display_origin[0],
-                y * scale + display_origin[1],
-                scale * w,
-                scale * h,
+                x + display_origin[0],
+                y + display_origin[1],
+                w,
+                h,
             ),
             rectangle.width.get(i),
         )
 
     (transform, circle) = circle_query.result()
     for i in range(len(transform)):
-        x = transform.translation.x.get(i) * scale + display_origin[0]
-        y = transform.translation.y.get(i) * scale + display_origin[1]
+        x = transform.translation.x.get(i) + display_origin[0]
+        y = transform.translation.y.get(i) + display_origin[1]
         pygame.draw.circle(
             display.surface,
             circle.color.get(i),
             (x, y),
-            scale * circle.radius.get(i),
+            circle.radius.get(i),
             width=circle.width.get(i),
         )
 
@@ -143,3 +140,5 @@ def update_mouse(mouse: xx.Mouse) -> None:
             mouse.pressed.add(button)
         else:
             mouse.pressed.discard(button)
+
+    mouse.position = pygame.mouse.get_pos()

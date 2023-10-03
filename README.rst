@@ -52,13 +52,15 @@ Further examples
 * `moving circles`_
 * `boids`_
 * `mouse presses`_
+* `mouse position`_
 
 .. _xecs: https://github.com/lukasturcani/xecs
 .. _pygame: https://github.com/pygame/pygame
 .. _`draw shapes`: https://github.com/lukasturcani/xecs-pygame/blob/master/examples/draw_shapes.py
-.. _`moving circles`: https://github.com/lukasturcani/xecs/blob/master/examples/moving_circles/moving_circles.py
-.. _boids: https://github.com/lukasturcani/xecs/blob/master/examples/boids/boids.py
-.. _`mouse presses`: https://github.com/lukasturcani/xecs/blob/master/examples/mouse_presses/mouse_presses.py
+.. _`moving circles`: https://xecs.readthedocs.io/en/latest/moving_circles.html
+.. _boids: https://xecs.readthedocs.io/en/latest/boids.html
+.. _`mouse presses`: https://xecs.readthedocs.io/en/latest/mouse_presses.html
+.. _`mouse position`: https://xecs.readthedocs.io/en/latest/mouse_position.html
 
 
 Installation
