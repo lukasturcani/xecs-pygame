@@ -60,7 +60,7 @@ Further examples
 .. _`moving circles`: https://xecs.readthedocs.io/en/latest/moving_circles.html
 .. _boids: https://xecs.readthedocs.io/en/latest/boids.html
 .. _`mouse presses`: https://xecs.readthedocs.io/en/latest/mouse_presses.html
-.. _`mouse posiiton`: https://xecs.readthedocs.io/en/latest/mouse_position.html
+.. _`mouse position`: https://xecs.readthedocs.io/en/latest/mouse_position.html
 
 
 Installation
