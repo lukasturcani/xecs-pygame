@@ -52,6 +52,7 @@ Further examples
 * `moving circles`_
 * `boids`_
 * `mouse presses`_
+* `mouse position`_
 
 .. _xecs: https://github.com/lukasturcani/xecs
 .. _pygame: https://github.com/pygame/pygame
