@@ -53,6 +53,7 @@ Further examples
 * `boids`_
 * `mouse presses`_
 * `mouse position`_
+* `text`_
 
 .. _xecs: https://github.com/lukasturcani/xecs
 .. _pygame: https://github.com/pygame/pygame
@@ -61,6 +62,7 @@ Further examples
 .. _boids: https://xecs.readthedocs.io/en/latest/boids.html
 .. _`mouse presses`: https://xecs.readthedocs.io/en/latest/mouse_presses.html
 .. _`mouse position`: https://xecs.readthedocs.io/en/latest/mouse_position.html
+.. _`text`: https://xecs.readthedocs.io/en/latest/text.html
 
 
 Installation

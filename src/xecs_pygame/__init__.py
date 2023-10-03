@@ -1,4 +1,4 @@
-from typing import Callable
+from collections.abc import Callable
 
 import numpy as np
 import pygame
@@ -21,6 +21,7 @@ class PyGamePlugin(xx.RealTimeAppPlugin):
         app.add_pool(Rectangle.create_pool(0))
         app.add_pool(Polygon.create_pool(0))
         app.add_pool(xx.Transform2.create_pool(0))
+        app.add_pool(Text.create_pool(0))
 
 
 class Display(xx.Resource):
@@ -39,6 +40,16 @@ class Rectangle(xx.Component):
     size: xx.PyField[tuple[float, float]] = xx.py_field(default=(10.0, 10.0))
     color: xx.PyField[str] = xx.py_field(default="purple")
     width: xx.PyField[int] = xx.py_field(default=0)
+
+
+class TextError(Exception):
+    pass
+
+
+class Text(xx.Component):
+    font: xx.PyField[pygame.font.Font | None] = xx.py_field(default=None)
+    text: xx.PyField[str] = xx.py_field(default="")
+    color: xx.PyField[str] = xx.py_field(default="purple")
 
 
 def _get_star() -> list[tuple[float, float]]:
@@ -71,6 +82,7 @@ def draw(
     polygon_query: xx.Query[tuple[xx.Transform2, Polygon]],
     rectangle_query: xx.Query[tuple[xx.Transform2, Rectangle]],
     circle_query: xx.Query[tuple[xx.Transform2, Circle]],
+    text_query: xx.Query[tuple[xx.Transform2, Text]],
 ) -> None:
     (transform, polygon) = polygon_query.result()
     display.surface.fill(display.color)
@@ -119,6 +131,18 @@ def draw(
             circle.radius.get(i),
             width=circle.width.get(i),
         )
+
+    (transform, text) = text_query.result()
+    for i in range(len(transform)):
+        font = text.font.get(i)
+        if font is None:
+            raise TextError("uninitialized font")
+        text_surface = pygame.transform.flip(
+            font.render(text.text.get(i), True, text.color.get(i)), False, True
+        )
+        x = transform.translation.x.get(i) + display_origin[0]
+        y = transform.translation.y.get(i) + display_origin[1]
+        display.surface.blit(text_surface, (x, y))
 
     display.surface.blit(
         pygame.transform.flip(display.surface, False, True),
