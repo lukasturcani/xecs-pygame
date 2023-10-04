@@ -4,6 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "xecs_pygame"
+description = "A pygame plugin for xecs."
 maintainers = [
   { name = "Lukas Turcani", email = "lukasturcani93@gmail.com" },
 ]
