@@ -33,15 +33,16 @@ class Display(xx.Resource):
 
 
 class Circle(xx.Component):
-    radius: xx.PyField[float] = xx.py_field(default=5.0)
+    radius: xx.Float = xx.float_(default=5.0)
     color: xx.PyField[str] = xx.py_field(default="purple")
-    width: xx.PyField[int] = xx.py_field(default=0)
+    width: xx.Int = xx.int_(default=0)
 
 
 class Rectangle(xx.Component):
-    size: xx.PyField[tuple[float, float]] = xx.py_field(default=(10.0, 10.0))
+    length_x: xx.Float = xx.float_(default=10.0)
+    length_y: xx.Float = xx.float_(default=10.0)
     color: xx.PyField[str] = xx.py_field(default="purple")
-    width: xx.PyField[int] = xx.py_field(default=0)
+    width: xx.Int = xx.int_(default=0)
 
 
 class TextError(Exception):
@@ -109,15 +110,14 @@ def draw(
     for i in range(len(transform)):
         x = transform.translation.x.get(i)
         y = transform.translation.y.get(i)
-        (w, h) = rectangle.size.get(i)
         pygame.draw.rect(
             display.surface,
             rectangle.color.get(i),
             pygame.Rect(
                 x + display_origin[0],
                 y + display_origin[1],
-                w,
-                h,
+                rectangle.length_x.get(i),
+                rectangle.length_y.get(i),
             ),
             rectangle.width.get(i),
         )
